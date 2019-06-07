@@ -102,3 +102,7 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+#custom folders to ignore:
+raw_data/
+archive/
