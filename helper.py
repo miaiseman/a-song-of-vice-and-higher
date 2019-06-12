@@ -14,7 +14,7 @@ def get_keys(path):
     with open(path) as f:
         return json.load(f)
      
-got_dict = {'bran':['bran','brandon stark'], 
+person_dict = {'bran':['bran','brandon stark'], 
             'jon':['jon', 'jon snow'], 
             'dany':['khaleesi', 'dany', 'daenerys', 'danyris'], 
            'davos':['davos'],
@@ -51,9 +51,8 @@ got_dict = {'bran':['bran','brandon stark'],
             'viserys':['viserys'],
             'margaery':['margaery'],
             'oberon':['oberon'],'night_king':['night king'],'lyanna':['lyanna mormont'],
-            'jaqen':['jaqen'], 'hodor':['hodor'], 'ygritte':['ygritte'], 'mance':['mance']}
-
-dems_dict = {'harris':['senator harris', 'k. harris', 'kamala', 'kamalaharrisforpresident'], 
+            'jaqen':['jaqen'], 'hodor':['hodor'], 'ygritte':['ygritte'], 'mance':['mance'],
+               'harris':['senator harris', 'k. harris', 'kamala', 'kamalaharrisforpresident'], 
              'biden':['biden', 'joe2020'],
              'buttigieg':['buttigieg', 'buttigidg', 'mayor pete', 'bootijedge'], 
              'gillibrand':['gillibrand'], 'hickenlooper':['hickenlooper'], 
