@@ -75,7 +75,7 @@ def attribute_comment(df, map_dict):
                 if item in row['comment']:
                     df.loc[index, key] += int(row['comment'].count(item))
                     
-def add_comment_length(df):
+def add_comment_length_column(df):
     """Add the length of the comment to our dataframe (which has a column named 'comment'.)"""
     for index, row in pol_df.iterrows():
         pol_df.loc[index,'comment_length']= len(pol_df['comment'][index])
