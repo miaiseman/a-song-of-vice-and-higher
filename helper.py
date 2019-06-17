@@ -120,7 +120,7 @@ def create_scores_matrix(topn, similars_dict, vocab):
     return scores_mat    
     
 def add_similarity_score(tgt_word, topn, w2v_model
-                         , tgt_df, term_vocab, person_mat):
+                         , tgt_df, term_vocab, person_mat, custom_column=None):
     """Given a target word, run through prefit gensim Word2Vec model and
         retrieve topn most similar words. And then append average score
         to person dataframe.
@@ -133,7 +133,8 @@ def add_similarity_score(tgt_word, topn, w2v_model
     tgt_df: dataframe to column-bind average results
     term_vocab: Get vocab list of search terms used to search for persons
     person_mat: mapping matrix to map person to respective search terms
-
+    custom_column: Default None, otherwise uses user-generated column name
+    
     Returns:
     --------
     Nothing. Just prints completion message.
@@ -159,10 +160,16 @@ def add_similarity_score(tgt_word, topn, w2v_model
     with np.errstate(divide='ignore', invalid='ignore'):
         avg_similarity = np.nan_to_num(np.divide(agg_similarity, match_count))
     
+    #test column name key 
+    print(custom_column)
+    
     # Append onto target dataframe
-    tgt_df['similarity_' + tgt_word] = avg_similarity
-
-    print("Completed for :'" + tgt_word + "'")
+    if custom_column==None:
+        tgt_df['similarity_' + tgt_word] = avg_similarity
+    else: 
+        tgt_df['similarity_' + custom_column] = avg_similarity
+        
+    print("Completed for:" + custom_column)
     
 #-------------------------------------
 # Dictionaries
@@ -222,7 +229,61 @@ person_dict = {'bran':['bran','brandon stark'],
              'bennet':['bennet'], 'delaney':['delaney'], 
              'moulton':['moulton'], 'swalwell':['swalwell'], 
              'williamson':['williamson'], 'yang':['yang']}
-        
+
+#Copy of person_dict but without spaces in the values for gensim similarity
+no_spaces_dict = {'bran':['bran'], 
+            'jon':['jon'], 
+            'dany':['khaleesi', 'dany', 'daenerys','danny','danaerys', 'daenarys'], 
+           'davos':['davos'],
+            'doran':['doran'],
+            'cersei':['cersei','cercei'],
+            'tyrion':['tyrion', 'tirion'],
+            'sansa':['sansa'],
+            'arya':['arya'],
+            'stannis':['stannis'],
+            'varys':['varys','varis'],
+            'jamie':['jamie','jaime'],
+            'brienne':['brienne', 'brianne'],
+            'samwell':['samwell'],
+            'jorah':['jorah'],
+            'theon':['theon'],
+            'hound':['hound', 'sandor'],
+            'littlefinger':['littlefinger', 'baelish'],
+            'joffrey':['joffrey','joff'],
+            'mountain':['mountain', 'gregor'],
+            'robb':['robb'],
+            'dragons':['drogo', ],
+            'melisandre':['melisandre'],
+            'bronn':['bronn'],
+            'gilly':['gilly'],
+            'ramsey':['ramsey', 'ramsay'],
+            'missandei':['missandei'],
+            'gendry':['gendry'],
+            'grey worm':['greyworm', 'grayworm'],
+            'ned':['ned', 'eddard'],
+            'catelyn':['catelyn'],
+            'tormund':['tormund', 'giantsbane'], #fixed 190614
+            'robert':['robert'],
+            'tommen':['tommen'],
+            'viserys':['viserys'],
+            'margaery':['margaery'],
+            'euron':['euron'],
+            'oberyn':['oberon', 'oberyn', 'viper'],
+            'night_king':['nightking', 'nk'],
+            'jaqen':['jaqen'], 'hodor':['hodor'], 'ygritte':['ygritte'], 'mance':['mance'],
+               'harris':['kamala', 'harris'], 
+             'biden':['biden'],
+             'buttigieg':['buttigieg'], 
+             'gillibrand':['gillibrand', 'kirsten'], 'hickenlooper':['hickenlooper'], 
+             'klobuchar':['klobuchar'], 'warren':['warren'], 
+             'booker':['booker','cory'], 'inslee':['inslee'], 
+             'castro':['castro', 'julián', 'julian'], 'gabbard':['gabbard', 'tulsi'], 
+             'sanders':['sanders', 'bernie'], 'de blasio':['deblasio','blasio'], 
+             'bullock':['bullock'], 'gravel':['gravel'], 
+             'messam':['messam'], "o'rourke":["orourke", "beto"], 
+             'bennet':['bennet'], 'delaney':['delaney'], 
+             'moulton':['moulton'], 'swalwell':['swalwell'], 
+             'williamson':['williamson'], 'yang':['yang']}
 
 # Mapping for person to domain
 domain_dict = {'bran': 'got'
