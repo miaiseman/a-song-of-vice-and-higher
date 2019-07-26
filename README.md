@@ -20,7 +20,7 @@ Bernie Sanders? More like Bernie Sansa! And Gendry — the good ol’ boy from t
 If this feels a little click-baity so far, you’re not wrong. The rest of this essay chronicles in detail the process for creating our list. Read on for the science behind these pairings, and feel free to explore our Github repository further.
 
 ## Acquiring and Preparing the Data
-We used Reddit comments and Natural Language Processing to create our mappings. Through the Reddit API, and a little help from this article, we saved over 300,000 comments from the Politics and Game of Thrones subreddits to an Amazon Web Services Relational Database Service.
+We used Reddit comments and Natural Language Processing to create our mappings. Through the Reddit API, and a little help from <a href="https://towardsdatascience.com/exploring-reddits-ask-me-anything-using-the-praw-api-wrapper-129cf64c5d65">this article</a>, we saved over 300,000 comments from the Politics and Game of Thrones subreddits to a PostgreSQL database on AWS Relational Database Services.
 
 Once we had a long list of comments, we needed to attribute the comments to specific people. (For our purposes, “people” refers to both fictional characters and nonfictional nominees.) To do that, we created a function that examined each row of the dataframe of comments, compared each comment to a dictionary of people and their pseudonyms, and tallied whether the name appeared in the comment to give that person credit. This turned out to be incredibly time-consuming, so we found a better way: matrices!
 
